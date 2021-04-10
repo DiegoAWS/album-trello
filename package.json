@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "WyeWorks Coding Test",
   "scripts": {
-    "start": "node src",
-    "dev": "nodemon src"
+    "client": "cd client && yarn start",
+    "server": "nodemon server",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "dev:server": "cd client && yarn build && cd .. && yarn start",
+    "start": "node server",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "author": "Diego Escobar",
   "license": "ISC",
@@ -17,6 +21,7 @@
     "querystring": "^0.2.1"
   },
   "devDependencies": {
+    "concurrently": "^6.0.1",
     "nodemon": "^2.0.7"
   }
 }

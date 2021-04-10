@@ -6,7 +6,7 @@ const _get = require('lodash/get');
 const axios = require('axios');
 router.get('/', (req, res) => res.send('A great website is comming...'));
 
-router.post('/getPicture', async (req, res) => {
+router.post('/getPictures', async (req, res) => {
   const client_id = process.env.SPOTIFY_ID;
   const client_secret = process.env.SPOTIFY_SECRET;
 
