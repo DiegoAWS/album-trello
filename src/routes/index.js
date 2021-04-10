@@ -4,6 +4,7 @@ const request = require('request');
 const querystring = require('querystring');
 const _get = require('lodash/get');
 
+const axios = require('axios');
 router.get('/', (req, res) => res.send('A great website is comming...'));
 
 router.post('/getPicture', async (req, res) => {
@@ -31,33 +32,56 @@ router.post('/getPicture', async (req, res) => {
       const list = req.body;
       const totalElements = list.length;
 
-      let resp = [];
-      for (let i = 0; i < totalElements; i++) {
-        const album = list[i].album
-        const year = list[i].year
 
+
+      const getOneAlbum = (album, year) => {
         const query = {
           q: album + ' ' + 'year:' + year,
           type: 'album',
         }
 
-        const queryOK = querystring.stringify(query);
-
+        
+        const url = 'https://api.spotify.com/v1/search?' + querystring.stringify(query);
         const options = {
-          url: 'https://api.spotify.com/v1/search?' + queryOK,
           headers: {
             'Authorization': 'Bearer ' + access_token
           },
           json: true
         };
-        request.get(options, function (error, response, body) {
-          const album_pict = _get(body, 'albums.items[0].images[0].url', '');
+        return axios.get(url, options);
 
-          resp.push({ album, year, album_pict })
-          if (resp.length === totalElements)
-            res.json(resp)
-        });
       }
+      var p = [];
+      for (let i = 0; i < totalElements; i++) {
+        const album = list[i].album
+        const year = list[i].year
+
+        p.push(getOneAlbum(album, year))
+      }
+
+      Promise.all(p).then((data) => {
+
+        const albumsOK = data.map(item => ({
+          album_picture: _get(item, 'data.albums.items[0].images[0].url', ''),
+          album_name: _get(item, 'data.albums.items[0].name', ''),
+          album_artist: _get(item, 'data.albums.items[0].artists[0].name', ''),
+          album_year: _get(item, 'data.albums.items[0].release_date', '').slice(0, 4),
+        }))
+        res.json(albumsOK)
+
+      }).catch(err => {
+        console.log('error ', err)
+        res.json(err)
+      })
+
+      // request.get(options, function (error, response, body) {
+      //   const album_pict = _get(body, 'albums.items[0].images[0].url', '');
+
+      //   resp.push({ album, year, album_pict })
+      //   if (resp.length === totalElements)
+      //     res.json(resp)
+      // });
+
 
 
     }
