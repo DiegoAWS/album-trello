@@ -2,10 +2,10 @@
 Coding test
 ===
 
-![WyeWorks logo](./src/assets/imgs/wyeworks-directorio.jpg)
+![WyeWorks logo](./server/assets/imgs/wyeworks-directorio.jpg)
 
 ## Issue
-> The attached file [discography.txt](./src/assets/discography%20.txt) contains Bob Dylan's discography.
+> The attached file [discography.txt](./server/assets/discography%20.txt) contains Bob Dylan's discography.
 >
 > Our goal is to get a Trello board by interacting with the Trello API, with the albums sorted in lists sorted by decade.
 >
@@ -19,13 +19,36 @@ Coding test
 <hr>
 <br>
 
+### Solution in Progress
+>[album-trello on Heroku](https://album-trello.herokuapp.com/)
+
+### TODO List
+- [x] Node/Express Boilerplate
+- [x] React Integrated
+- [x] Deploy Heroku server with CD
+- [x] Loading and Parsing Text File
+- [x] Spotify API Authentication
+- [x] Spotify API Concurrencial Requests
+- [ ] Spotify API Album Image Not found Problem
+- [ ] Frontend Input Data Validator
+- [ ] Backend Input Data Validator
+- [ ] Sorting By Decade Year and Album Name 
+- [ ] Trello API login and access
+- [ ] Trello API integration
+- [ ] Frontend UX/UI 
+- [ ] Stress TESTs
+- [ ] General Tests
+  
+<br>
+<hr>
+<br>
 ## General ideas
 
 We can resume the main workflow of our application in the following image
 
-![General workflow](./src/assets/imgs/STEPS.jpg)
+![General workflow](./server/assets/imgs/STEPS.jpg)
 
-Here we can have a general idea of ​​what our application should do:
+Here we can have a general idea of what our application should do:
 * We need to upload a plain text file (containing a list of album name pairs and years).
 * We need to parse this file to a machine readable format. Here we will use [JSON](https://www.json.org/ "JSON official website") a simple interchange data text format.
 * Then we need to get the cover image of each album. We will use the Spotify public API for this task.
