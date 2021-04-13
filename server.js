@@ -12,16 +12,17 @@ app.use(cors());
 app.use('/api', routes);
 
 const port = process.env.PORT || 5000;
-
+//Serving Static Assets
+app.use(express.static(path.join(__dirname, 'server/assets')));
 
 if (process.env.NODE_ENV === 'production') {
   // Serving React static files
   app.use(express.static(path.join(__dirname, 'client/build')));
 
-  // Handle React routing redirects
-  app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+  // // Handle React routing redirects
+  // app.get('*', function (req, res) {
+  //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  // });
 }
 
 app.listen(port, '0.0.0.0', () => {

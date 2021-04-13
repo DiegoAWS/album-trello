@@ -43,9 +43,9 @@ const App = () => {
 
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
         {cards.map((item, key) =>
-          <div key={key} style={{ width: "200px", padding: "10px" }}>
+          <div key={key} style={{ width: "300px", padding: "10px" }}>
 
-            <Card style={{ height: '100%' }}>
+            <Card style={{ height: '100%', border:'1px solid black', borderRadius:'10px',margin:'10px' }}>
               <CardActionArea>
                 <CardMedia
                   component="img"

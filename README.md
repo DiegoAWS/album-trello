@@ -29,7 +29,7 @@ Coding test
 - [x] Loading and Parsing Text File
 - [x] Spotify API Authentication
 - [x] Spotify API Concurrencial Requests
-- [ ] Spotify API Album Image Not found Problem
+- [x] Spotify API Album Image Not found Problem
 - [ ] Frontend Input Data Validator
 - [ ] Backend Input Data Validator
 - [ ] Sorting By Decade Year and Album Name 

@@ -31,6 +31,16 @@ router.post('/getPictures', async (req, res) => {
     const { access_token } = data?.data;
 
 
+    const getOriginalInfo = url => {
+
+      const queryParams = url.split('?').slice(-1)[0]
+      const parsed = querystring.parse(queryParams).q
+      const splited = parsed.split(' year:')
+      return {
+        album_name: splited[0],
+        album_year: splited[1],
+      }
+    }
 
 
     const getOneAlbum = (album, year, token) => {
@@ -55,12 +65,18 @@ router.post('/getPictures', async (req, res) => {
 
     Promise.all(p).then((data) => {
 
-      const albumsOK = data.map(item => ({
-        album_picture: _get(item, 'data.albums.items[0].images[0].url', ''),
-        album_name: _get(item, 'data.albums.items[0].name', ''),
+      const albumsOK = data.map(item => {
+        album_picture=_get(item, 'data.albums.items[0].images[0].url', '/imgs/error.jpg')
+        
+        return {
+        album_picture,
         album_artist: _get(item, 'data.albums.items[0].artists[0].name', ''),
-        album_year: _get(item, 'data.albums.items[0].release_date', '').slice(0, 4),
-      }))
+        ...getOriginalInfo( _get(item, 'config.url', '')),
+      }}
+      
+      )
+     
+
       res.json(albumsOK)
 
     }).catch(err => {
