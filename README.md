@@ -42,6 +42,7 @@ Coding test
 <br>
 <hr>
 <br>
+
 ## General ideas
 
 We can resume the main workflow of our application in the following image

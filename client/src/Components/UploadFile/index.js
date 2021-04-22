@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import Button from '@material-ui/core/Button';
 
@@ -14,7 +13,8 @@ const UploadFile = ({ fileContent }) => {
   const handleFileChosen = (e) => {
     const file = e.target.files[0];
     fileReader.onloadend = handleFileRead;
-    fileReader.readAsText(file);
+    if (file instanceof Blob)
+     fileReader.readAsText(file);
   };
 
 
